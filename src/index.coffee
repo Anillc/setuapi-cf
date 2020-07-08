@@ -17,6 +17,12 @@ router.get '/setu', ({ res }) ->
   setu = await fetch jsd + setuPath
   res.type = 'image/png'
   res.body = await setu.arrayBuffer()
-  
-new Application().use router.middleware
+
+cors = ({ res }, next) ->
+  res.headers.set 'access-control-allow-origin', '*'
+  await next()
+
+new Application()
+  .use cors
+  .use router.middleware
   .listen()
