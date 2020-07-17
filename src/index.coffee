@@ -23,7 +23,7 @@ router.get '/setu!', ({ res }) ->
     headers:
       'User-Agent': ua
   setuList = (await (await fetch setuUrl, init).json()).tree
-  setuPath = setuList[random 0, setuList.length].setuPath
+  setuPath = setuList[random 0, setuList.length].path
   res.status = 302
   res.headers.set 'Location', jsd + setuPath
 
