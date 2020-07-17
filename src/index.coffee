@@ -18,6 +18,15 @@ router.get '/setu', ({ res }) ->
   res.type = 'image/png'
   res.body = await setu.arrayBuffer()
 
+router.get '/setu!', ({ res }) ->
+  init =
+    headers:
+      'User-Agent': ua
+  setuList = (await (await fetch setuUrl, init).json()).tree
+  setuPath = setuList[random 0, setuList.length].setuPath
+  res.status = 302
+  res.headers.set 'Location', jsd + setuPath
+
 cors = ({ res }, next) ->
   res.headers.set 'access-control-allow-origin', '*'
   await next()
